@@ -1,0 +1,11 @@
+menu "glassjaw"
+
+    config GLASSJAW_BUZZER
+        bool "drive a buzzer on GPIO26 when the alarm fires"
+        default n
+        help
+            the ponderada lists the buzzer as optional. enable only if one is
+            actually wired to GPIO26; otherwise the alarm is the fast-blinking
+            LED on GPIO2 + steady LED on GPIO25.
+
+endmenu
