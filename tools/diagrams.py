@@ -143,8 +143,8 @@ def wiring_svg():
     wire("M 229 256 H 272 V 368 H 400", "#e8952b")
     # WS -> D15: down and around the bottom
     wire("M 229 276 H 254 V 580 H 690 V 160 H 584", "#c9c93a")
-    # LED A -> D25 (left header, y=300), resistor drawn on the segment
-    wire("M 743 240 H 700 V 300 H 392", "#e05d5d")
+    # LED A -> D5 (right header, next to TX2/D18)
+    wire("M 743 240 H 736 V 252 H 640", "#e05d5d")
     parts.append('<rect x="620" y="294" width="36" height="11" fill="#c8b78e" stroke="#8f8060"/>')
     parts.append('<text x="612" y="288" fill="#a33" font-size="11">330R</text>')
     # LED K -> GND left rail (bottom)

@@ -97,7 +97,7 @@
 <path d="M 229 236 H 290 V 236 H 400" stroke="#2b7fd9" stroke-width="3.5" fill="none" stroke-linecap="round"/>
 <path d="M 229 256 H 272 V 368 H 400" stroke="#e8952b" stroke-width="3.5" fill="none" stroke-linecap="round"/>
 <path d="M 229 276 H 254 V 580 H 690 V 160 H 584" stroke="#c9c93a" stroke-width="3.5" fill="none" stroke-linecap="round"/>
-<path d="M 743 240 H 700 V 300 H 392" stroke="#e05d5d" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+<path d="M 743 240 H 736 V 252 H 640" stroke="#e05d5d" stroke-width="3.5" fill="none" stroke-linecap="round"/>
 <rect x="620" y="294" width="36" height="11" fill="#c8b78e" stroke="#8f8060"/>
 <text x="612" y="288" fill="#a33" font-size="11">330R</text>
 <path d="M 887 240 H 930 V 566 H 46 V 476 H 400" stroke="#333" stroke-width="3.5" fill="none" stroke-linecap="round"/>

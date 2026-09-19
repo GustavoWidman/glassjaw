@@ -99,7 +99,7 @@ full wiring schema in `docs/diagrams/wiring.svg`. total cost is about the price 
 | inmp441 ws | gpio15 | yellow |
 | inmp441 sd | gpio32 | blue |
 | inmp441 l/r | gnd | black |
-| led anode | gpio25 (via 330r) | red |
+| led anode | gpio5 (via 330r) | red |
 | led cathode | gnd | black |
 | buzzer + | gpio26 (optional, default off) | purple |
 | buzzer − | gnd (optional) | black |

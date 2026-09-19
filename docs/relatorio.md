@@ -27,7 +27,7 @@ medir acurácia honestamente, coisa que "ruído incomum" não permite.
 | esp32 devkit v1 (wroom-32, 240 mhz) | processamento, freertos |
 | inmp441 | microfone i2s omnidirecional 24-bit |
 | led onboard (gpio2) | heartbeat (pisca a 1 hz) |
-| led vermelho (gpio25 + 330 Ω) | alarme (piscar rápido) |
+| led vermelho (gpio5 + 330 Ω) | 1 hz = vivo, fixo = alarme |
 | buzzer ativo (gpio26) | opcional — o enunciado marca como "opcional"; firmware suporta via Kconfig |
 
 o esquema completo de montagem está em `docs/diagrams/wiring.svg`. o áudio

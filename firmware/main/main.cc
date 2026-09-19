@@ -29,7 +29,7 @@ constexpr gpio_num_t kPinI2sSck = GPIO_NUM_14;
 constexpr gpio_num_t kPinI2sWs = GPIO_NUM_15;
 constexpr gpio_num_t kPinI2sSd = GPIO_NUM_32;
 constexpr gpio_num_t kPinStatusLed = GPIO_NUM_2;
-constexpr gpio_num_t kPinAlarmLed = GPIO_NUM_25;
+constexpr gpio_num_t kPinAlarmLed = GPIO_NUM_5;   // D5 on the right header
 // the ponderada lists the buzzer as optional ("LED + Buzzer (opcional)");
 // this kit has none, so it is a compile-time option. alarm = fast-blinking
 // led, which reads better on camera anyway.
@@ -120,6 +120,9 @@ class GpioAlerts final : public gj::AlertSink {
 #endif
     printf("[alert] %s\n", on ? "GLASS BREAK ALARM" : "clear");
   }
+
+  // the alarm led does double duty: 1 hz blink = alive, solid = alarm
+
 
   void heartbeat(const gj::StageTiming&, float score, bool alarm) override {
     // tuning telemetry: every window, score + peak level
