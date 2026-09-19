@@ -21,3 +21,6 @@ compile_commands.json
 
 # os junk
 .DS_Store
+
+# local review scratch
+.review/
