@@ -1,0 +1,23 @@
+# python
+.venv/
+__pycache__/
+*.pyc
+
+# data + caches (datasets never belong in git)
+data/
+
+# scratch experiments
+tools/_*.py
+*.log
+
+# build artifacts
+build/
+firmware/build/
+firmware/sdkconfig
+firmware/sdkconfig.old
+firmware/dependencies.lock
+firmware/managed_components/
+compile_commands.json
+
+# os junk
+.DS_Store
