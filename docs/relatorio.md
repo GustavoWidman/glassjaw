@@ -193,6 +193,18 @@ no hospedeiro (simulador, mesma pipeline): features p50 = 0,86 ms, inferência
 p50 = 3,3 ms — o gargalo é exclusivamente a cpu do dispositivo
 (`docs/results/sim_report.json`).
 
+### 6.3 calibração em bancada
+
+o ponto de operação foi calibrado no dispositivo, em três iterações medidas:
+a ganância de entrada `>>14` saturava o microfone em eventos altos (pico
+0 dbfs, espectro destruído, escore travado em 0,07); com `>>16` (+12 db de
+folga) o mesmo estímulo passou a produzir resposta limpa de 10× (escore
+0,28). o limiar de validação (0,628) provou-se conservador demais para som
+reproduzido por alto-falante de celular a volume médio; o ponto de operação
+ao vivo foi ajustado para 0,18 — acima do ruído de sala (0,02–0,04) e de
+palmas medidas (0,07–0,12), abaixo da resposta a vidro (0,17–0,30). o alarme
+dispara com reprodução a volume médio a ~30 cm do microfone.
+
 ## 7. discussão e limitações
 
 - a comporta de energia significa que eventos muito distantes/abaixo do ruído
