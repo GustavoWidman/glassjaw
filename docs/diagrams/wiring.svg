@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 620" font-family="ui-monospace,Menlo,monospace">
+<defs><marker id="a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#4a7fa5"/></marker><marker id="g" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#c9a227"/></marker></defs>
+<text x="24" y="32" font-size="19" fill="#111" font-weight="bold">glassjaw - kit wiring</text>
+<text x="24" y="50" font-size="12" fill="#555">esp32 devkit v1 + inmp441 + led. buzzer optional (kconfig). follow pin names, not positions.</text>
+
+<rect x="400" y="80" width="180" height="460" rx="10" fill="#1b3a4b"/>
+<rect x="448" y="92" width="84" height="64" rx="6" fill="#0b1c26"/>
+<text x="490" y="128" text-anchor="middle" fill="#8fd3f4" font-size="11">ESP-WROOM</text>
+<rect x="456" y="514" width="68" height="16" rx="3" fill="#0b1c26"/>
+<text x="490" y="525" text-anchor="middle" fill="#888" font-size="9">USB</text>
+<circle cx="408" cy="104" r="5" fill="#d9b44a"/>
+<text x="396" y="108" text-anchor="end" fill="#cde3ee" font-size="11">EN</text>
+<circle cx="408" cy="132" r="5" fill="#d9b44a"/>
+<text x="396" y="136" text-anchor="end" fill="#cde3ee" font-size="11">VP</text>
+<circle cx="408" cy="160" r="5" fill="#d9b44a"/>
+<text x="396" y="164" text-anchor="end" fill="#cde3ee" font-size="11">VN</text>
+<circle cx="408" cy="188" r="5" fill="#d9b44a"/>
+<text x="396" y="192" text-anchor="end" fill="#cde3ee" font-size="11">D34</text>
+<circle cx="408" cy="216" r="5" fill="#d9b44a"/>
+<text x="396" y="220" text-anchor="end" fill="#cde3ee" font-size="11">D35</text>
+<circle cx="408" cy="244" r="5" fill="#d9b44a"/>
+<text x="396" y="248" text-anchor="end" fill="#cde3ee" font-size="11">D32</text>
+<circle cx="408" cy="272" r="5" fill="#d9b44a"/>
+<text x="396" y="276" text-anchor="end" fill="#cde3ee" font-size="11">D33</text>
+<circle cx="408" cy="300" r="5" fill="#d9b44a"/>
+<text x="396" y="304" text-anchor="end" fill="#cde3ee" font-size="11">D25</text>
+<circle cx="408" cy="328" r="5" fill="#d9b44a"/>
+<text x="396" y="332" text-anchor="end" fill="#cde3ee" font-size="11">D26</text>
+<circle cx="408" cy="356" r="5" fill="#d9b44a"/>
+<text x="396" y="360" text-anchor="end" fill="#cde3ee" font-size="11">D27</text>
+<circle cx="408" cy="384" r="5" fill="#d9b44a"/>
+<text x="396" y="388" text-anchor="end" fill="#cde3ee" font-size="11">D14</text>
+<circle cx="408" cy="412" r="5" fill="#d9b44a"/>
+<text x="396" y="416" text-anchor="end" fill="#cde3ee" font-size="11">D12</text>
+<circle cx="408" cy="440" r="5" fill="#d9b44a"/>
+<text x="396" y="444" text-anchor="end" fill="#cde3ee" font-size="11">D13</text>
+<circle cx="408" cy="468" r="5" fill="#d9b44a"/>
+<text x="396" y="472" text-anchor="end" fill="#cde3ee" font-size="11">GND</text>
+<circle cx="408" cy="496" r="5" fill="#d9b44a"/>
+<text x="396" y="500" text-anchor="end" fill="#cde3ee" font-size="11">VIN</text>
+<circle cx="572" cy="104" r="5" fill="#d9b44a"/>
+<text x="584" y="108" text-anchor="start" fill="#cde3ee" font-size="11">3V3</text>
+<circle cx="572" cy="132" r="5" fill="#d9b44a"/>
+<text x="584" y="136" text-anchor="start" fill="#cde3ee" font-size="11">GND</text>
+<circle cx="572" cy="160" r="5" fill="#d9b44a"/>
+<text x="584" y="164" text-anchor="start" fill="#cde3ee" font-size="11">D15</text>
+<circle cx="572" cy="188" r="5" fill="#d9b44a"/>
+<text x="584" y="192" text-anchor="start" fill="#cde3ee" font-size="11">D2</text>
+<circle cx="572" cy="216" r="5" fill="#d9b44a"/>
+<text x="584" y="220" text-anchor="start" fill="#cde3ee" font-size="11">D4</text>
+<circle cx="572" cy="244" r="5" fill="#d9b44a"/>
+<text x="584" y="248" text-anchor="start" fill="#cde3ee" font-size="11">RX2</text>
+<circle cx="572" cy="272" r="5" fill="#d9b44a"/>
+<text x="584" y="276" text-anchor="start" fill="#cde3ee" font-size="11">TX2</text>
+<circle cx="572" cy="300" r="5" fill="#d9b44a"/>
+<text x="584" y="304" text-anchor="start" fill="#cde3ee" font-size="11">D5</text>
+<circle cx="572" cy="328" r="5" fill="#d9b44a"/>
+<text x="584" y="332" text-anchor="start" fill="#cde3ee" font-size="11">D18</text>
+<circle cx="572" cy="356" r="5" fill="#d9b44a"/>
+<text x="584" y="360" text-anchor="start" fill="#cde3ee" font-size="11">D19</text>
+<circle cx="572" cy="384" r="5" fill="#d9b44a"/>
+<text x="584" y="388" text-anchor="start" fill="#cde3ee" font-size="11">D21</text>
+<circle cx="572" cy="412" r="5" fill="#d9b44a"/>
+<text x="584" y="416" text-anchor="start" fill="#cde3ee" font-size="11">RX0</text>
+<circle cx="572" cy="440" r="5" fill="#d9b44a"/>
+<text x="584" y="444" text-anchor="start" fill="#cde3ee" font-size="11">TX0</text>
+<circle cx="572" cy="468" r="5" fill="#d9b44a"/>
+<text x="584" y="472" text-anchor="start" fill="#cde3ee" font-size="11">D22</text>
+<circle cx="572" cy="496" r="5" fill="#d9b44a"/>
+<text x="584" y="500" text-anchor="start" fill="#cde3ee" font-size="11">D23</text>
+<rect x="60" y="84" width="170" height="190" rx="10" fill="#204030"/>
+<circle cx="145" cy="128" r="24" fill="#101f16" stroke="#2e5842"/>
+<text x="145" y="132" text-anchor="middle" fill="#9fd3b4" font-size="10">MIC</text>
+<text x="145" y="172" text-anchor="middle" fill="#d7efe0" font-size="13" font-weight="bold">INMP441</text>
+<circle cx="224" cy="196" r="5" fill="#d9b44a"/>
+<text x="218" y="200" text-anchor="end" fill="#cde3ee" font-size="11">VDD</text>
+<circle cx="224" cy="216" r="5" fill="#d9b44a"/>
+<text x="218" y="220" text-anchor="end" fill="#cde3ee" font-size="11">GND</text>
+<circle cx="224" cy="236" r="5" fill="#d9b44a"/>
+<text x="218" y="240" text-anchor="end" fill="#cde3ee" font-size="11">SD</text>
+<circle cx="224" cy="256" r="5" fill="#d9b44a"/>
+<text x="218" y="260" text-anchor="end" fill="#cde3ee" font-size="11">SCK</text>
+<circle cx="66" cy="256" r="5" fill="#d9b44a"/>
+<text x="72" y="260" text-anchor="start" fill="#cde3ee" font-size="11">L/R</text>
+<rect x="740" y="230" width="150" height="86" rx="10" fill="#204030"/>
+<circle cx="815" cy="264" r="13" fill="#e05d5d" stroke="#7c2f2f"/>
+<text x="815" y="300" text-anchor="middle" fill="#d7efe0" font-size="13" font-weight="bold">ALARM LED</text>
+<circle cx="748" cy="240" r="5" fill="#d9b44a"/>
+<text x="740" y="236" text-anchor="start" fill="#cde3ee" font-size="11">A</text>
+<circle cx="882" cy="240" r="5" fill="#d9b44a"/>
+<text x="890" y="236" text-anchor="start" fill="#cde3ee" font-size="11">K</text>
+<path d="M 229 196 H 300 V 64 H 700 V 104 H 584" stroke="#d33" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+<path d="M 229 216 H 315 V 78 H 686 V 132 H 584" stroke="#333" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+<path d="M 61 256 H 30 V 476 H 400" stroke="#333" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+<path d="M 229 236 H 290 V 236 H 400" stroke="#2b7fd9" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+<path d="M 229 256 H 272 V 368 H 400" stroke="#e8952b" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+<path d="M 229 276 H 254 V 580 H 690 V 160 H 584" stroke="#c9c93a" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+<path d="M 743 240 H 700 V 300 H 584" stroke="#e05d5d" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+<rect x="620" y="294" width="36" height="11" fill="#c8b78e" stroke="#8f8060"/>
+<text x="612" y="288" fill="#a33" font-size="11">330R</text>
+<path d="M 887 240 H 930 V 566 H 46 V 476 H 400" stroke="#333" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+<text x="24" y="604" font-size="12" fill="#333">wires:</text>
+<text x="74" y="604" font-size="12" fill="#d33">3v3</text>
+<text x="122" y="604" font-size="12" fill="#333">gnd</text>
+<text x="170" y="604" font-size="12" fill="#2b7fd9">sd</text>
+<text x="210" y="604" font-size="12" fill="#e8952b">sck</text>
+<text x="258" y="604" font-size="12" fill="#c9c93a">ws</text>
+<text x="298" y="604" font-size="12" fill="#e05d5d">led</text>
+<text x="24" y="620" font-size="11" fill="#666">onboard led gpio2 blinks 1 hz (5 hz on alarm). buzzer: optional, gpio26, enable in menuconfig.</text>
+</svg>

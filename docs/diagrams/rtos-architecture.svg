@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 660" font-family="ui-monospace,Menlo,monospace">
+<defs><marker id="a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#4a7fa5"/></marker><marker id="g" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#c9a227"/></marker></defs>
+<text x="24" y="32" font-size="19" fill="#111" font-weight="bold">glassjaw - freertos task graph</text>
+<text x="24" y="50" font-size="12" fill="#555">same graph runs on the esp32 firmware and the host simulator (freertos posix port)</text>
+
+<rect x="30" y="84" width="190" height="62" rx="8" fill="#3a2a1b"/>
+<text x="125" y="106" text-anchor="middle" fill="#f0d9b5" font-size="13" font-weight="bold">INMP441</text>
+<text x="125" y="123" text-anchor="middle" fill="#cbb394" font-size="11">i2s 16 kHz mono</text>
+<text x="125" y="140" text-anchor="middle" fill="#cbb394" font-size="11">dma 8 kb blocks</text>
+<rect x="300" y="76" width="260" height="96" rx="8" fill="#1b3a4b"/>
+<text x="430" y="98" text-anchor="middle" fill="#fff" font-size="13" font-weight="bold">capture  (prio 5)</text>
+<text x="430" y="115" text-anchor="middle" fill="#9fc6da" font-size="11">i2s_channel_read, blocking</text>
+<text x="430" y="132" text-anchor="middle" fill="#9fc6da" font-size="11">writes spsc ring 32 k</text>
+<text x="430" y="149" text-anchor="middle" fill="#9fc6da" font-size="11">gives window sem / 8 k smp</text>
+<rect x="300" y="216" width="260" height="62" rx="8" fill="#204030"/>
+<text x="430" y="238" text-anchor="middle" fill="#d7efe0" font-size="13" font-weight="bold">spsc ring 32 k</text>
+<text x="430" y="255" text-anchor="middle" fill="#a9d3bb" font-size="11">lock-free, drop-oldest</text>
+<rect x="30" y="216" width="190" height="62" rx="8" fill="#204030"/>
+<text x="125" y="238" text-anchor="middle" fill="#d7efe0" font-size="13" font-weight="bold">window semaphore</text>
+<text x="125" y="255" text-anchor="middle" fill="#a9d3bb" font-size="11">binary, 1 give / hop</text>
+<rect x="300" y="326" width="260" height="96" rx="8" fill="#1b3a4b"/>
+<text x="430" y="348" text-anchor="middle" fill="#fff" font-size="13" font-weight="bold">features  (prio 4)</text>
+<text x="430" y="365" text-anchor="middle" fill="#9fc6da" font-size="11">peek newest 1 s window</text>
+<text x="430" y="382" text-anchor="middle" fill="#9fc6da" font-size="11">hamming, fft, mel, log10</text>
+<text x="430" y="399" text-anchor="middle" fill="#9fc6da" font-size="11">26 x 61 spectrogram</text>
+<rect x="650" y="336" width="220" height="76" rx="8" fill="#204030"/>
+<text x="760" y="358" text-anchor="middle" fill="#d7efe0" font-size="13" font-weight="bold">spec queue (4)</text>
+<text x="760" y="375" text-anchor="middle" fill="#a9d3bb" font-size="11">spectrogram + peak + t0</text>
+<text x="760" y="392" text-anchor="middle" fill="#a9d3bb" font-size="11">full -> drop oldest</text>
+<rect x="650" y="466" width="260" height="150" rx="8" fill="#1b3a4b"/>
+<text x="780" y="488" text-anchor="middle" fill="#fff" font-size="13" font-weight="bold">detect  (prio 2)</text>
+<text x="780" y="505" text-anchor="middle" fill="#9fc6da" font-size="11">energy gate -40 dbfs</text>
+<text x="780" y="522" text-anchor="middle" fill="#9fc6da" font-size="11">onnx engine (int8 cnn)</text>
+<text x="780" y="539" text-anchor="middle" fill="#9fc6da" font-size="11">debounce 2/3</text>
+<text x="780" y="556" text-anchor="middle" fill="#9fc6da" font-size="11">led gpio25, buzzer opt.</text>
+<text x="780" y="573" text-anchor="middle" fill="#9fc6da" font-size="11">e2e latency sample</text>
+<rect x="300" y="470" width="260" height="80" rx="8" fill="#3d2a4a"/>
+<text x="430" y="492" text-anchor="middle" fill="#e6d5f0" font-size="13" font-weight="bold">monitor  (prio 1)</text>
+<text x="430" y="509" text-anchor="middle" fill="#c5a9d6" font-size="11">p50/p99 every 5 s</text>
+<rect x="30" y="326" width="190" height="62" rx="8" fill="#204030"/>
+<text x="125" y="348" text-anchor="middle" fill="#d7efe0" font-size="13" font-weight="bold">stats mutex</text>
+<text x="125" y="365" text-anchor="middle" fill="#a9d3bb" font-size="11">latency stats x4</text>
+<path d="M 220 115 L 300 124" stroke="#4a7fa5" stroke-width="2" fill="none" marker-end="url(#a)"/>
+<text x="260" y="114" text-anchor="middle" fill="#555" font-size="10">i2s dma</text>
+<path d="M 430 172 L 430 216" stroke="#4a7fa5" stroke-width="2" fill="none" marker-end="url(#a)"/>
+<path d="M 300 247 L 220 247" stroke="#c9a227" stroke-width="2" fill="none" stroke-dasharray='5 4' marker-end="url(#g)"/>
+<text x="260" y="241" text-anchor="middle" fill="#555" font-size="10">give / 8k</text>
+<path d="M 125 278 L 300 374" stroke="#c9a227" stroke-width="2" fill="none" stroke-dasharray='5 4' marker-end="url(#g)"/>
+<text x="212" y="320" text-anchor="middle" fill="#555" font-size="10">take</text>
+<path d="M 560 374 L 650 374" stroke="#4a7fa5" stroke-width="2" fill="none" marker-end="url(#a)"/>
+<text x="605" y="368" text-anchor="middle" fill="#555" font-size="10">send</text>
+<path d="M 760 412 L 780 466" stroke="#4a7fa5" stroke-width="2" fill="none" marker-end="url(#a)"/>
+<text x="770" y="433" text-anchor="middle" fill="#555" font-size="10">recv</text>
+<path d="M 430 422 L 430 470" stroke="#c9a227" stroke-width="2" fill="none" stroke-dasharray='5 4' marker-end="url(#g)"/>
+<text x="430" y="440" text-anchor="middle" fill="#555" font-size="10">record</text>
+<path d="M 650 541 L 560 510" stroke="#c9a227" stroke-width="2" fill="none" stroke-dasharray='5 4' marker-end="url(#g)"/>
+<path d="M 300 510 L 125 388" stroke="#c9a227" stroke-width="2" fill="none" stroke-dasharray='5 4' marker-end="url(#g)"/>
+<text x="24" y="648" font-size="11" fill="#666">hop = 500 ms of audio. one window = 1 s, 50% overlap. e2e budget per hop; monitor reports per-stage p50/p99.</text>
+</svg>
