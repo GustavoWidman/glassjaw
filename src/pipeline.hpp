@@ -37,7 +37,6 @@ inline constexpr int kClearHold = 3;
 
 // ---- rtos plumbing
 inline constexpr int kFeatureQueueDepth = 3;      // spectrogram windows in flight
-inline constexpr int kDetectionQueueDepth = 4;    // scores in flight
 
 using Spectrogram = std::array<float, kMelBands * kFramesPerWindow>;
 

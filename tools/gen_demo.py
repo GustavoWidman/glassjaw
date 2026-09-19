@@ -1,9 +1,9 @@
 """generate docs/demo clips for the in-class checkpoint.
 
-these are synthetic (no esc-50 redistribution concerns): a glass-like burst
-(broadband crack + high-frequency ring-out) and a quiet-room baseline. the
-expected simulator outputs are committed next to them so the demo can be
-rehearsed: play the wav into a speaker OR feed it to gj_sim directly.
+synthetic clips (no esc-50 redistribution concerns): a glass-like burst
+(broadband crack + high-frequency ring-out) and a quiet-room baseline.
+rehearse the demo by feeding them straight to gj_sim, or play them at the
+device microphone.
 """
 import sys
 from pathlib import Path

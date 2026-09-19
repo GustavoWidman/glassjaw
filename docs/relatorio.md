@@ -2,7 +2,7 @@
 
 **Relatório técnico — Ponderada, módulo INTRO/FootStats**
 
-Autor: Gustavo Widman · Entrega: 18/09/2026 · Repositório: github.com/GustavoWidman/glassjaw
+Autor: Gustavo Widman · Checkpoint: 21/09/2026 · Repositório: github.com/GustavoWidman/glassjaw
 
 ---
 
@@ -74,7 +74,7 @@ primitivas de sincronização e por quê:
   áudio completo).
 - **semáforo binário** por hop de janela (a cada 8000 amostras):(features
   dorme até existir 0,5 s de áudio novo.
-- **fila de profundidade 4** entre features e detect: limita memória e
+- **fila de profundidade 3** entre features e detect: limita memória e
   absorve jitter; quando cheia, descarta a janela mais antiga.
 - **mutex** só nas estatísticas de latência (conteúdo não-crítico).
 
@@ -85,7 +85,7 @@ antes do hardware: (1) deadlock por locks de stdio do libc quando o
 escalonador suspende uma tarefa no meio de um `printf` (resolvido com
 `write(2)`/bufferização); (2) inanição das tarefas de menor prioridade por
 uma `capture` que nunca cedia a cpu no modo rápido (resolvido com yield por
-chunk). ambos estão documentados no commit 7b53d77 da pipeline.
+chunk). ambos estão documentados no commit da pipeline (e97bb8c).
 
 ## 5. modelo de detecção
 
@@ -171,7 +171,8 @@ roda no dispositivo.
 limiar 0,628 (escolhido no fold de validação para ≤2% de falso positivo por
 janela). o recall por clipe é conservador por causa do debounce (2 janelas
 consecutivas); o limiar pode ser baixado para trocar falsos alarmes por
-recall — a curva completa está no `models/history.json`.
+recall — as métricas por semente e o limiar escolhido estão em
+`models/history.json`.
 
 ### 6.2 latência (esp32 real, 240 mhz, build -o2)
 
@@ -188,8 +189,9 @@ as janelas excedentes por projeto. caminho de otimização conhecido e não
 tomado por tempo: kernels im2col+gemm int8 ou esp-dl (ganho esperado 4–8×),
 que tornariam a inferência ~100 ms e a pipeline totalmente real-time.
 
-no hospedeiro (simulador, mesma pipeline): features p50 = 0,75 ms, inferência
-p50 = 2,5 ms — o gargalo é exclusivamente a cpu do dispositivo.
+no hospedeiro (simulador, mesma pipeline): features p50 = 0,86 ms, inferência
+p50 = 3,3 ms — o gargalo é exclusivamente a cpu do dispositivo
+(`docs/results/sim_report.json`).
 
 ## 7. discussão e limitações
 

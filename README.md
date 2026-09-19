@@ -26,7 +26,7 @@ three tasks, exactly like the assignment asks, plus a monitor:
 | detect | 2 | energy gate → int8 cnn → debounce → led + buzzer |
 | monitor | 1 | p50/p99 latency report every 5 s |
 
-synchronization is boring on purpose: one binary semaphore per window hop, one depth-4 queue for spectrograms (drop-oldest when the model lags), one mutex for stats. boring is what you want when a grader asks you to explain your concurrency choices.
+synchronization is boring on purpose: one binary semaphore per window hop, one depth-3 queue for spectrograms (drop-oldest when the model lags), one mutex for stats. boring is what you want when a grader asks you to explain your concurrency choices.
 
 the host simulator runs this **exact same code** linked against the real freertos kernel (posix port), so queues, priorities and starvation behavior are testable without hardware. it found two real bugs before the firmware ever touched a board, both in the commit history.
 
@@ -38,7 +38,7 @@ the culprit was esc-50 itself: the clips are padded with silence, so up to a thi
 
 final model: a small cnn over the log-mel spectrogram, ~1.75 m int8 macs per inference, 14 kb of weights. trained in numpy because the whole thing fits in memory and i did not feel like installing torch for that. exported to onnx, statically quantized (per-channel int8), and validated against onnxruntime before it ever touches the esp32.
 
-the runtime is `src/onnx/`: a ~700 line protobuf reader + interpreter for the exact op set the exported graph uses (conv, maxpool, gap, matmul, the quantized variants, and a few elementwise ops). golden-vector tests pin it to onnxruntime's outputs, float and int8, to four decimal places.
+the runtime is `src/onnx/`: a ~700 line protobuf reader + interpreter for the exact op set the exported graph uses (conv, maxpool, gap, matmul, the quantized variants, and a few elementwise ops). golden-vector tests pin it to onnxruntime's outputs, float (3e-3) and int8 (2e-2 tolerances).
 
 ## repo layout
 
@@ -57,10 +57,11 @@ docs/           report, wiring diagram, results
 the host side (simulator + tests) is plain cmake:
 
 ```bash
+git submodule update --init
 cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
 cmake --build build
 ./build/gj_tests                     # unit + parity tests
-./build/sim/gj_sim models/detector_int8.onnx some_audio.wav --threshold 0.42
+./build/sim/gj_sim models/detector_int8.onnx some_audio.wav --threshold 0.628
 ```
 
 training the model yourself needs esc-50 and a python venv:
@@ -71,7 +72,7 @@ python3 -m venv .venv && .venv/bin/pip install -r tools/requirements.txt
 tools/run.sh tools/prepare_dataset.py /path/to/ESC-50-master data
 tools/run.sh tools/train.py          # trains, picks threshold, writes weights
 tools/run.sh tools/export_model.py   # onnx float + int8 + golden fixtures
-tools/run.sh tools/simulate.py --threshold 0.42   # dataset-wide sim + latency
+tools/run.sh tools/simulate.py --threshold 0.628   # dataset-wide sim + latency
 ```
 
 for the firmware you need esp-idf v5.x and the wiring from `docs/diagrams/wiring.svg`:

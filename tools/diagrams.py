@@ -61,7 +61,7 @@ def rtos_svg():
     b["sem"] = Box(30, 216, 190, 62, "#204030", "window semaphore", ["binary, 1 give / hop"], "#d7efe0", "#a9d3bb")
     b["features"] = Box(300, 326, 260, 96, "#1b3a4b", "features  (prio 4)",
                         ["peek newest 1 s window", "hamming, fft, mel, log10", "26 x 61 spectrogram"])
-    b["queue"] = Box(650, 336, 220, 76, "#204030", "spec queue (4)", ["spectrogram + peak + t0", "full -> drop oldest"], "#d7efe0", "#a9d3bb")
+    b["queue"] = Box(650, 336, 220, 76, "#204030", "spec queue (3)", ["spectrogram + peak + t0", "full -> drop oldest"], "#d7efe0", "#a9d3bb")
     b["detect"] = Box(650, 466, 260, 150, "#1b3a4b", "detect  (prio 2)",
                       ["energy gate -40 dbfs", "onnx engine (int8 cnn)", "debounce 2/3", "led gpio25, buzzer opt.", "e2e latency sample"])
     b["monitor"] = Box(300, 470, 260, 80, "#3d2a4a", "monitor  (prio 1)", ["p50/p99 every 5 s"], "#e6d5f0", "#c5a9d6")
@@ -112,7 +112,7 @@ def wiring_svg():
     parts.append('<circle cx="145" cy="128" r="24" fill="#101f16" stroke="#2e5842"/>')
     parts.append('<text x="145" y="132" text-anchor="middle" fill="#9fd3b4" font-size="10">MIC</text>')
     parts.append('<text x="145" y="172" text-anchor="middle" fill="#d7efe0" font-size="13" font-weight="bold">INMP441</text>')
-    pins = [("VDD", 196), ("GND", 216), ("SD", 236), ("SCK", 256)]
+    pins = [("VDD", 196), ("GND", 216), ("SD", 236), ("SCK", 256), ("WS", 276)]
     for name, y in pins:
         parts.append(f'<circle cx="224" cy="{y}" r="5" fill="#d9b44a"/>')
         parts.append(f'<text x="218" y="{y+4}" text-anchor="end" fill="#cde3ee" font-size="11">{name}</text>')
@@ -143,8 +143,8 @@ def wiring_svg():
     wire("M 229 256 H 272 V 368 H 400", "#e8952b")
     # WS -> D15: down and around the bottom
     wire("M 229 276 H 254 V 580 H 690 V 160 H 584", "#c9c93a")
-    # LED A -> D25 (resistor drawn on the segment)
-    wire("M 743 240 H 700 V 300 H 584", "#e05d5d")
+    # LED A -> D25 (left header, y=300), resistor drawn on the segment
+    wire("M 743 240 H 700 V 300 H 392", "#e05d5d")
     parts.append('<rect x="620" y="294" width="36" height="11" fill="#c8b78e" stroke="#8f8060"/>')
     parts.append('<text x="612" y="288" fill="#a33" font-size="11">330R</text>')
     # LED K -> GND left rail (bottom)

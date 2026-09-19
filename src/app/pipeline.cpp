@@ -127,9 +127,8 @@ void Pipeline::features_loop() {
     int64_t t0 = micros();
     ring_->peek_newest(window);
 
-    // fixed spectrogram pool (bss, not the pipeline object: the object is
-    // big enough already). six slots > four queue slots + one in flight, so
-    // a slot is never reused while still queued.
+    // spectrogram pool: queue slots + one in flight, so a slot is never
+    // reused while still queued.
     static uint32_t next = 0;
     auto* spec = &spec_pool_[next++ % (kFeatureQueueDepth + 1)];
     auto res = log_mel_spectrogram(window, std::span<float>(spec->data(), spec->size()));

@@ -24,7 +24,7 @@
 <text x="430" y="382" text-anchor="middle" fill="#9fc6da" font-size="11">hamming, fft, mel, log10</text>
 <text x="430" y="399" text-anchor="middle" fill="#9fc6da" font-size="11">26 x 61 spectrogram</text>
 <rect x="650" y="336" width="220" height="76" rx="8" fill="#204030"/>
-<text x="760" y="358" text-anchor="middle" fill="#d7efe0" font-size="13" font-weight="bold">spec queue (4)</text>
+<text x="760" y="358" text-anchor="middle" fill="#d7efe0" font-size="13" font-weight="bold">spec queue (3)</text>
 <text x="760" y="375" text-anchor="middle" fill="#a9d3bb" font-size="11">spectrogram + peak + t0</text>
 <text x="760" y="392" text-anchor="middle" fill="#a9d3bb" font-size="11">full -> drop oldest</text>
 <rect x="650" y="466" width="260" height="150" rx="8" fill="#1b3a4b"/>
