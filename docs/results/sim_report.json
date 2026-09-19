@@ -1,0 +1,34 @@
+{
+  "model": "models/detector_int8.onnx",
+  "threshold": 0.6281,
+  "windows": 2240,
+  "gated_windows": 239,
+  "window_metrics": {
+    "auc": 0.9269880477080911,
+    "tp": 62,
+    "fp": 53,
+    "fn": 32,
+    "tn": 1631,
+    "accuracy": 0.952193475815523
+  },
+  "clip_metrics": {
+    "recall": 0.5,
+    "false_alarm_clips": 14,
+    "normal_clips": 208
+  },
+  "latency_us": {
+    "capture": {
+      "p50": 1,
+      "p95": 4
+    },
+    "features": {
+      "p50": 863,
+      "p95": 1341
+    },
+    "infer": {
+      "p50": 3301,
+      "p95": 4845
+    },
+    "notes": "host sim (posix port) on this machine; esp32 numbers come from the device run"
+  }
+}
