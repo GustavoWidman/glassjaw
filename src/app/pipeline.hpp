@@ -36,6 +36,9 @@ class AlertSink {
   virtual ~AlertSink() = default;
   virtual void set_alarm(bool on) = 0;
   virtual void heartbeat(const StageTiming& t, float score, bool alarm) = 0;
+  // called by the capture task on every mic read (~64 ms cadence); the
+  // firmware blinks the status led from here, other sinks ignore it
+  virtual void tick(bool alarm) { (void)alarm; }
 };
 
 struct PipelineHooks {

@@ -89,6 +89,7 @@ void Pipeline::capture_loop() {
       break;
     }
     ring_->write(std::span<const int16_t>(chunk.data(), n));
+    alerts_.tick(detector_.alarm());
     hop_credit_ += static_cast<int>(n);
     if (hop_credit_ >= kWindowHop) {
       hop_credit_ -= kWindowHop;

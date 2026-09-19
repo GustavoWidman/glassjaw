@@ -481,17 +481,6 @@ bool Engine::op_dequantize_linear(const Node& n, std::string& error) {
 bool Engine::exec_node(const Node& n, std::string& error) {
   const std::string& op = n.op;
 
-#if defined(ESP_PLATFORM)
-  {
-    static int traced = 0;
-    if (traced < 25) {
-      ++traced;
-      ESP_EARLY_LOGI("gj", "[node %2d] %-16s in=%-28s heap=%u largest=%u", traced, op.c_str(),
-                 n.inputs[0].c_str(), heap_caps_get_free_size(MALLOC_CAP_8BIT),
-                 heap_caps_get_largest_free_block(MALLOC_CAP_8BIT));
-    }
-  }
-#endif
   if (getenv("GJ_TRACE")) {
     const Tensor* tin = fetch(n.inputs[0]);
     fprintf(stderr, "[trace] %s in=%s(%s) -> %s\n", op.c_str(), n.inputs[0].c_str(),

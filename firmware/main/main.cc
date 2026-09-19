@@ -41,10 +41,11 @@ constexpr gpio_num_t kPinBuzzer = GPIO_NUM_26;
 extern const uint8_t model_start[] asm("_binary_detector_int8_onnx_start");
 extern const uint8_t model_end[] asm("_binary_detector_int8_onnx_end");
 
-// inmp441 delivers 24-bit samples left-justified in a 32-bit frame. shifting
-// right by 14 keeps ~18 bits of headroom before the int16 clamp — quiet rooms
-// stay quiet, breaking glass still saturates.
-constexpr int kI2sShift = 14;
+// inmp441 delivers 24-bit samples left-justified in a 32-bit frame. the
+// shift sets the input gain: >>16 leaves ~12 db of headroom so a loud event
+// next to the mic does not clip (at >>14 a phone speaker at arm's length
+// saturates and the spectrogram loses the event signature entirely).
+constexpr int kI2sShift = 16;
 
 class I2sMicSource final : public gj::MicSource {
  public:
@@ -121,15 +122,8 @@ class GpioAlerts final : public gj::AlertSink {
   }
 
   void heartbeat(const gj::StageTiming&, float score, bool alarm) override {
-    // status led: 1 hz blink when calm, every-inference blink while alarmed
-    static int ticks = 0;
-    int period = alarm_ ? 1 : 4;
-    if ((ticks++ % period) == 0) {
-      gpio_set_level(kPinStatusLed, !gpio_get_level(kPinStatusLed));
-    }
-    if ((ticks % 8) == 0) {
-      printf("[detect] score=%.3f alarm=%d\n", score, alarm ? 1 : 0);
-    }
+    // tuning telemetry: every window, score + peak level
+    printf("[detect] score=%.3f alarm=%d\n", score, alarm ? 1 : 0);
   }
 
  private:
@@ -152,18 +146,15 @@ extern "C" void app_main() {
       reinterpret_cast<const std::byte*>(model_start),
       static_cast<std::size_t>(model_end - model_start));
 
-  static int64_t feat_acc = 0, infer_acc = 0;
-  static int feat_n = 0, infer_n = 0;
   gj::PipelineHooks hooks;
-  hooks.on_features = [](void*, int64_t us) {
-    feat_acc += us;
-    if (++feat_n % 60 == 0) printf("[feat] n=%d mean=%lld us\n", feat_n, (long long)(feat_acc / feat_n));
+  hooks.on_detection = [](void*, const gj::Detection& d) {
+    printf("[window] score=%.3f peak=%.0f gated=%d alarm=%d\n",
+           d.score, d.peak_dbfs, d.gated ? 1 : 0, d.alarm ? 1 : 0);
   };
   hooks.on_infer = [](void*, int64_t us) {
-    infer_acc += us;
-    ++infer_n;
-    if (infer_n == 1) printf("[infer] first=%lld us\n", (long long)us);
-    if (infer_n % 30 == 0) printf("[infer] n=%d mean=%lld us\n", infer_n, (long long)(infer_acc / infer_n));
+    static int64_t acc = 0; static int n = 0;
+    acc += us;
+    if (++n % 60 == 0) printf("[infer] n=%d mean=%lld us\n", n, (long long)(acc / n));
   };
   static gj::Pipeline* pipe = new gj::Pipeline(mic, alerts, model, GLASSJAW_THRESHOLD, hooks);
 
