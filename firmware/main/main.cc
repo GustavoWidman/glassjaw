@@ -127,13 +127,18 @@ class GpioAlerts final : public gj::AlertSink {
 
 
   void tick(bool alarm) override {
-    // heartbeat lives on the onboard led only; the external red led is
-    // alarm-only (dark = no alarm, solid = alarm) so the two never blur.
-    (void)alarm;
+    // no user-controllable onboard led on this board variant (gpio2 has
+    // none; the red one near the left edge is the power indicator). the
+    // external red led carries both signals in patterns that cannot be
+    // confused: a 90 ms blip every ~2 s = alive, solid = alarm.
+    if (alarm) return;  // solid, set_alarm drove it high
     static int n = 0;
-    if ((n++ % 8) == 0) {
-      gpio_set_level(kPinStatusLed, !gpio_get_level(kPinStatusLed));
+    if (n % 32 == 0) {          // every 32 reads (~2 s): blip
+      gpio_set_level(kPinAlarmLed, 1);
+    } else if (n % 32 == 2) {   // ~130 ms later: off again
+      gpio_set_level(kPinAlarmLed, 0);
     }
+    ++n;
   }
 
   void heartbeat(const gj::StageTiming&, float score, bool alarm) override {
@@ -174,7 +179,7 @@ extern "C" void app_main() {
   static gj::Pipeline* pipe = new gj::Pipeline(mic, alerts, model, GLASSJAW_THRESHOLD, hooks);
 
   auto boot = [](void*) {
-    printf("glassjaw: red=alarm only, heartbeat=onboard, v3\n");
+    printf("glassjaw: led = blip every 2s (alive) / solid (alarm), v4\n");
     for (int i = 0; i < 5; ++i) {
       gpio_set_level(kPinAlarmLed, 1);
       gpio_set_level(kPinAlarmLed2, 1);
