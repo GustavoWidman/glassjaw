@@ -29,7 +29,8 @@ constexpr gpio_num_t kPinI2sSck = GPIO_NUM_14;
 constexpr gpio_num_t kPinI2sWs = GPIO_NUM_15;
 constexpr gpio_num_t kPinI2sSd = GPIO_NUM_32;
 constexpr gpio_num_t kPinStatusLed = GPIO_NUM_2;
-constexpr gpio_num_t kPinAlarmLed = GPIO_NUM_5;   // D5 on the right header
+constexpr gpio_num_t kPinAlarmLed = GPIO_NUM_5;    // D5 on the right header
+constexpr gpio_num_t kPinAlarmLed2 = GPIO_NUM_25;  // also driven: 30-pin variant
 // the ponderada lists the buzzer as optional ("LED + Buzzer (opcional)");
 // this kit has none, so it is a compile-time option. alarm = fast-blinking
 // led, which reads better on camera anyway.
@@ -102,9 +103,9 @@ class GpioAlerts final : public gj::AlertSink {
  public:
   void init() {
 #ifdef CONFIG_GLASSJAW_BUZZER
-    for (auto pin : {kPinStatusLed, kPinAlarmLed, kPinBuzzer}) {
+    for (auto pin : {kPinStatusLed, kPinAlarmLed, kPinAlarmLed2, kPinBuzzer}) {
 #else
-    for (auto pin : {kPinStatusLed, kPinAlarmLed}) {
+    for (auto pin : {kPinStatusLed, kPinAlarmLed, kPinAlarmLed2}) {
 #endif
       gpio_reset_pin(pin);
       gpio_set_direction(pin, GPIO_MODE_OUTPUT);
@@ -115,6 +116,7 @@ class GpioAlerts final : public gj::AlertSink {
   void set_alarm(bool on) override {
     alarm_ = on;
     gpio_set_level(kPinAlarmLed, on ? 1 : 0);
+    gpio_set_level(kPinAlarmLed2, on ? 1 : 0);
 #ifdef CONFIG_GLASSJAW_BUZZER
     gpio_set_level(kPinBuzzer, on ? 1 : 0);
 #endif
@@ -123,6 +125,16 @@ class GpioAlerts final : public gj::AlertSink {
 
   // the alarm led does double duty: 1 hz blink = alive, solid = alarm
 
+
+  void tick(bool alarm) override {
+    // heartbeat lives on the onboard led only; the external red led is
+    // alarm-only (dark = no alarm, solid = alarm) so the two never blur.
+    (void)alarm;
+    static int n = 0;
+    if ((n++ % 8) == 0) {
+      gpio_set_level(kPinStatusLed, !gpio_get_level(kPinStatusLed));
+    }
+  }
 
   void heartbeat(const gj::StageTiming&, float score, bool alarm) override {
     // tuning telemetry: every window, score + peak level
@@ -162,9 +174,17 @@ extern "C" void app_main() {
   static gj::Pipeline* pipe = new gj::Pipeline(mic, alerts, model, GLASSJAW_THRESHOLD, hooks);
 
   auto boot = [](void*) {
-    if (!pipe->start(/*core=*/1)) {  // core 0 hosts the wifi/bt stacks
+    printf("glassjaw: red=alarm only, heartbeat=onboard, v3\n");
+    for (int i = 0; i < 5; ++i) {
+      gpio_set_level(kPinAlarmLed, 1);
+      gpio_set_level(kPinAlarmLed2, 1);
+      vTaskDelay(pdMS_TO_TICKS(90));
+      gpio_set_level(kPinAlarmLed, 0);
+      gpio_set_level(kPinAlarmLed2, 0);
+      vTaskDelay(pdMS_TO_TICKS(90));
+    }
+    if (!pipe->start(/*core=*/1)) {
       printf("fatal: pipeline failed to start (model load?)\n");
-      vTaskDelete(nullptr);
     }
     vTaskDelete(nullptr);
   };

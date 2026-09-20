@@ -9,6 +9,12 @@ HOST=${GLASSJAW_HOST:-desktop-nixos}
 REPO=$(cd "$(dirname "$0")/.." && pwd)
 MODE=${1:-all}
 
+if [ "${1:-}" = "clean" ]; then
+  echo ">> wiping remote build dir for a clean rebuild"
+  ssh -o BatchMode=yes "$HOST" "bash -c 'rm -rf ~/glassjaw'"
+  shift
+fi
+
 echo ">> syncing repo to $HOST:~/glassjaw"
 rsync -a --delete \
   --exclude .git --exclude build --exclude .venv --exclude data \
