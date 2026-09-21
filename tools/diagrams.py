@@ -87,7 +87,7 @@ def rtos_svg():
 # ---------------- wiring ----------------
 def wiring_svg():
     W = 980
-    parts = [header("glassjaw - kit wiring", "esp32 devkit v1 + inmp441 + led. buzzer optional (kconfig). follow pin names, not positions.", W, 620)]
+    parts = [header("glassjaw - kit wiring", "esp32 devkit v1 + inmp441 + led + buzzer. follow pin names, not positions.", W, 620)]
 
     # esp32 board
     bx, by, bw, bh = 400, 80, 180, 460
@@ -150,15 +150,29 @@ def wiring_svg():
     # LED K -> GND left rail (bottom)
     wire("M 887 240 H 930 V 566 H 46 V 476 H 400", "#333")
 
+    # buzzer module (top-right), 2-pin active buzzer
+    parts.append('<rect x="740" y="84" width="150" height="96" rx="10" fill="#204030"/>')
+    parts.append('<circle cx="815" cy="118" r="17" fill="#101f16" stroke="#2e5842"/>')
+    parts.append('<text x="815" y="156" text-anchor="middle" fill="#d7efe0" font-size="13" font-weight="bold">BUZZER</text>')
+    parts.append('<text x="815" y="172" text-anchor="middle" fill="#9fd3b4" font-size="10">no resistor needed</text>')
+    parts.append('<circle cx="748" cy="94" r="5" fill="#d9b44a"/>')
+    parts.append('<text x="740" y="90" text-anchor="start" fill="#cde3ee" font-size="11">+</text>')
+    parts.append('<circle cx="882" cy="94" r="5" fill="#d9b44a"/>')
+    parts.append('<text x="890" y="90" text-anchor="start" fill="#cde3ee" font-size="11">-</text>')
+    # buzzer + -> D26 (left header): route around the top
+    wire("M 743 94 H 710 V 70 H 356 V 328 H 392", "#8b47c9")
+    # buzzer - -> GND left rail
+    wire("M 887 94 H 930 V 566 H 46 V 476 H 400", "#333")
+
     legend = [("red", "#d33", "3v3"), ("blk", "#333", "gnd"), ("blu", "#2b7fd9", "sd"),
-              ("org", "#e8952b", "sck"), ("yel", "#c9c93a", "ws"), ("red", "#e05d5d", "led")]
+              ("org", "#e8952b", "sck"), ("yel", "#c9c93a", "ws"), ("red", "#e05d5d", "led"), ("pur", "#8b47c9", "buzzer")]
     x = 24
     parts.append('<text x="24" y="604" font-size="12" fill="#333">wires:</text>')
     x = 74
     for name, col, lbl in legend:
         parts.append(f'<text x="{x}" y="604" font-size="12" fill="{col}">{lbl}</text>')
         x += len(lbl) * 8 + 24
-    parts.append('<text x="24" y="620" font-size="11" fill="#666">onboard led gpio2 blinks 1 hz (5 hz on alarm). buzzer: optional, gpio26, enable in menuconfig.</text>')
+    parts.append('<text x="24" y="620" font-size="11" fill="#666">buzzer on gpio26: 2-pin active, + to gpio26, - to gnd, no resistor.</text>')
     return "\n".join(parts) + "\n</svg>\n"
 
 

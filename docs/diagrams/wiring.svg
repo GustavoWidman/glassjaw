@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 620" font-family="ui-monospace,Menlo,monospace">
 <defs><marker id="a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#4a7fa5"/></marker><marker id="g" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#c9a227"/></marker></defs>
 <text x="24" y="32" font-size="19" fill="#111" font-weight="bold">glassjaw - kit wiring</text>
-<text x="24" y="50" font-size="12" fill="#555">esp32 devkit v1 + inmp441 + led. buzzer optional (kconfig). follow pin names, not positions.</text>
+<text x="24" y="50" font-size="12" fill="#555">esp32 devkit v1 + inmp441 + led + buzzer. follow pin names, not positions.</text>
 
 <rect x="400" y="80" width="180" height="460" rx="10" fill="#1b3a4b"/>
 <rect x="448" y="92" width="84" height="64" rx="6" fill="#0b1c26"/>
@@ -101,6 +101,16 @@
 <rect x="620" y="294" width="36" height="11" fill="#c8b78e" stroke="#8f8060"/>
 <text x="612" y="288" fill="#a33" font-size="11">330R</text>
 <path d="M 887 240 H 930 V 566 H 46 V 476 H 400" stroke="#333" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+<rect x="740" y="84" width="150" height="96" rx="10" fill="#204030"/>
+<circle cx="815" cy="118" r="17" fill="#101f16" stroke="#2e5842"/>
+<text x="815" y="156" text-anchor="middle" fill="#d7efe0" font-size="13" font-weight="bold">BUZZER</text>
+<text x="815" y="172" text-anchor="middle" fill="#9fd3b4" font-size="10">no resistor needed</text>
+<circle cx="748" cy="94" r="5" fill="#d9b44a"/>
+<text x="740" y="90" text-anchor="start" fill="#cde3ee" font-size="11">+</text>
+<circle cx="882" cy="94" r="5" fill="#d9b44a"/>
+<text x="890" y="90" text-anchor="start" fill="#cde3ee" font-size="11">-</text>
+<path d="M 743 94 H 710 V 70 H 356 V 328 H 392" stroke="#8b47c9" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+<path d="M 887 94 H 930 V 566 H 46 V 476 H 400" stroke="#333" stroke-width="3.5" fill="none" stroke-linecap="round"/>
 <text x="24" y="604" font-size="12" fill="#333">wires:</text>
 <text x="74" y="604" font-size="12" fill="#d33">3v3</text>
 <text x="122" y="604" font-size="12" fill="#333">gnd</text>
@@ -108,5 +118,6 @@
 <text x="210" y="604" font-size="12" fill="#e8952b">sck</text>
 <text x="258" y="604" font-size="12" fill="#c9c93a">ws</text>
 <text x="298" y="604" font-size="12" fill="#e05d5d">led</text>
-<text x="24" y="620" font-size="11" fill="#666">onboard led gpio2 blinks 1 hz (5 hz on alarm). buzzer: optional, gpio26, enable in menuconfig.</text>
+<text x="346" y="604" font-size="12" fill="#8b47c9">buzzer</text>
+<text x="24" y="620" font-size="11" fill="#666">buzzer on gpio26: 2-pin active, + to gpio26, - to gnd, no resistor.</text>
 </svg>

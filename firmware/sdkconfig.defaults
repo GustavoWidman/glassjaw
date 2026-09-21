@@ -15,3 +15,4 @@ CONFIG_FREERTOS_CHECK_STACKOVERFLOW_CANARY=y
 # core 1 is dedicated to the pipeline (capture/features/detect/monitor);
 # its idle task may legitimately never run, so don't watchdog it.
 CONFIG_ESP_TASK_WDT_CHECK_IDLE_TASK_CPU1=n
+CONFIG_GLASSJAW_BUZZER=y
